@@ -1,8 +1,11 @@
 import { Router } from "express";
 import { writingPrompts } from "../dev/legacy-content";
 import { runLocalWritingReview } from "../lib/writing-review";
+import { requireAuth } from "../middleware/auth";
 
 export const writingRouter = Router();
+
+writingRouter.use(requireAuth);
 
 writingRouter.get("/config", (_request, response) => {
   response.json({

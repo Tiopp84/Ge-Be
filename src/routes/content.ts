@@ -12,8 +12,11 @@ import {
   vocabulary,
   writingPrompts,
 } from "../dev/legacy-content";
+import { requireAuth } from "../middleware/auth";
 
 export const contentRouter = Router();
+
+contentRouter.use(requireAuth);
 
 function isAvailable(item: (typeof lessonList)[number]) {
   return "available" in item ? item.available !== false : true;

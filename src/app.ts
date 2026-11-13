@@ -5,6 +5,7 @@ import pinoHttp from "pino-http";
 import { env } from "./config/env";
 import { logger } from "./lib/logger";
 import { errorHandler, notFound } from "./middleware/error";
+import { authRouter } from "./routes/auth";
 import { contentRouter } from "./routes/content";
 import { healthRouter } from "./routes/health";
 import { writingRouter } from "./routes/writing";
@@ -30,6 +31,7 @@ export function createApp() {
   });
   app.use("/health", healthRouter);
   app.use("/v1/health", healthRouter);
+  app.use("/v1/auth", authRouter);
   app.use("/v1", contentRouter);
   app.use("/v1/writing", writingRouter);
 

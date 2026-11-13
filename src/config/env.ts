@@ -6,7 +6,10 @@ const envSchema = z.object({
   PORT: z.coerce.number().int().positive().default(4000),
   LOG_LEVEL: z.string().default("info"),
   CORS_ORIGINS: z.string().default("http://localhost:3000"),
+  /** URL công khai của frontend, dùng cho link xác nhận email của Supabase. */
+  APP_PUBLIC_URL: z.string().url().optional(),
   SUPABASE_URL: z.string().url().optional(),
+  SUPABASE_ANON_KEY: z.string().min(1).optional(),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
 });
 
@@ -24,4 +27,5 @@ export const env = {
   corsOrigins: data.CORS_ORIGINS.split(",")
     .map((value) => value.trim())
     .filter(Boolean),
+  appPublicUrl: data.APP_PUBLIC_URL?.replace(/\/+$/u, "") ?? null,
 };
